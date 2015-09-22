@@ -36,16 +36,18 @@
     }
     return self;
 }
-
+/// - - - - - - 添加自定义控件
 - (void)setupView {
-    
+    /// - - - - - - - - - - - -添加图像为圆角
     UIImageView *customImageView = [[UIImageView alloc] init];
     customImageView.layer.cornerRadius = 15.0f;
     customImageView.layer.masksToBounds = YES;
     [self.contentView addSubview:customImageView];
     _customImageView = customImageView;
     
-    // 重点1
+    
+    /// - - - - - - - - - - - - 添加标题
+    // 重点1   告诉autolayout 系统label 的最大宽度，便于计算高度。
     CGFloat preferredWidth = [UIScreen mainScreen].bounds.size.width - 75;
     
     UILabel *title = [[UILabel alloc] init];
@@ -56,6 +58,7 @@
     [self.contentView addSubview:title];
     _title = title;
     
+    /// - - - - - - - - - - - - 添加内容
     UILabel *subtitle = [[UILabel alloc] init];
     subtitle.numberOfLines = 3;
     // 重点1
@@ -64,7 +67,9 @@
     _subTitle = subtitle;
 }
 
+/// - - - - - - - - - - - - 自定义控件的约束
 - (void)setupConstraint {
+    
     [self.customImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentView).with.offset(15.0f);
         make.right.equalTo(self.title.mas_left).with.offset(-15.0f);
@@ -73,7 +78,7 @@
     }];
     
     [self.title mas_makeConstraints:^(MASConstraintMaker *make) {
-        // 重点2
+        // 重点2  两个label 相邻，label的高度都是暂时无法确定，需要告诉autolayout系统 约束的优先级，遇到无法同时满足约束时的优先满足级别。
         make.top.equalTo(self.contentView).with.offset(20.0f).with.priority(751);
         make.right.equalTo(self.contentView).with.offset(-15.0f);
     }];

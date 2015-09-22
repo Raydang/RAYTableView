@@ -10,7 +10,6 @@
 
 @interface RAYTableViewCell : UITableViewCell
 
-
 /** 显示头像 */
 @property (weak, nonatomic) UIImageView *customImageView;
 /** 显示昵称 */
